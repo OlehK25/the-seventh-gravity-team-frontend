@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
+import NextAuthProvider from "@/providers/SessionProvider";
 
 const myFont = localFont({
   src: "../fonts/Mariupol-Regular.ttf",
@@ -17,7 +18,9 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en" className={`${myFont.className} text-black`}>
-      <body>{children}</body>
+      <body>
+        <NextAuthProvider>{children}</NextAuthProvider>
+      </body>
     </html>
   );
 }

@@ -10,10 +10,10 @@ function AppLayout({
   onLeviesClick,
   onAboutUsClick,
 }: {
-  children: React.ReactNode;
-  onHelpClick: () => void;
-  onLeviesClick: () => void;
-  onAboutUsClick: () => void;
+  children?: React.ReactNode;
+  onHelpClick?: () => void;
+  onLeviesClick?: () => void;
+  onAboutUsClick?: () => void;
 }) {
   return (
     <div className="text-black min-h-screen 2xl:flex 2xl:flex-col 2xl:items-center">

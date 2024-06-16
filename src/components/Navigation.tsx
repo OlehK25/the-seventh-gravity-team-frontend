@@ -7,7 +7,6 @@ import Container from "@mui/material/Container";
 import MuiAppBar from "@mui/material/AppBar";
 import { styled } from "@mui/material/styles";
 import { useRouter } from "next/navigation";
-import Image from "next/image";
 
 import NavLink from "@/components/NavLink";
 
@@ -20,9 +19,9 @@ function Navigation({
   onLeviesClick,
   onAboutUsClick,
 }: {
-  onHelpClick: () => void;
-  onLeviesClick: () => void;
-  onAboutUsClick: () => void;
+  onHelpClick?: () => void;
+  onLeviesClick?: () => void;
+  onAboutUsClick?: () => void;
 }) {
   const [languagesSelected, setLanguagesSelected] =
     React.useState<string>("ua");
@@ -107,7 +106,10 @@ function Navigation({
             </Box>
           </Box>
 
-          <button className="ml-10 inline-flex w-[138px] h-[40px] items-center justify-center rounded-2xl font-normal leading-7 text-white hover:bg-slate-950 bg-slate-950">
+          <button
+            onClick={() => router.push("/login")}
+            className="ml-10 inline-flex w-[138px] h-[40px] items-center justify-center rounded-2xl font-normal leading-7 text-white hover:bg-slate-950 bg-slate-950"
+          >
             Вхід
           </button>
         </Toolbar>
