@@ -29,7 +29,7 @@ function PhoneField({
       name={name}
       control={control}
       render={({ field }) => (
-        <div className="">
+        <div>
           <PhoneInput
             country={"ua"}
             disabled={isLoading}
@@ -52,7 +52,12 @@ function PhoneField({
               borderRight: "2px solid #d1d5db",
               borderRadius: "10px 0 0 10px",
             }}
-            {...field}
+            value={field.value}
+            onChange={field.onChange}
+            onBlur={field.onBlur}
+            inputProps={{
+              ref: field.ref,
+            }}
           />
 
           {error && (

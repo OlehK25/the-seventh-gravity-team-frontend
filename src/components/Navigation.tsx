@@ -57,7 +57,12 @@ function Navigation({
             gap: "16px",
           }}
         >
-          <div className="text-6xl text-black text-start mr-10">Logo</div>
+          <div
+            className="text-6xl text-black text-start mr-10 hover:cursor-pointer"
+            onClick={() => router.push("/")}
+          >
+            Logo
+          </div>
 
           <Box
             sx={{

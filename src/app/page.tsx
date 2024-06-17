@@ -34,12 +34,18 @@ export default function HomePage() {
       <div className="px-16">
         <SectionOne />
 
-        <SectionTwo />
+        <div ref={aboutUsRef}>
+          <SectionTwo />
+        </div>
 
-        <SectionThree />
+        <div ref={leviesRef}>
+          <SectionThree />
+        </div>
       </div>
 
-      <SectionFour />
+      <div ref={helpingRef}>
+        <SectionFour />
+      </div>
 
       <FooterData />
     </AppLayout>

@@ -5,7 +5,7 @@ import Link from "next/link";
 import { signIn } from "next-auth/react";
 import Image from "next/image";
 import { PiWarningCircleFill } from "react-icons/pi";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -15,38 +15,49 @@ import EmailField from "@/components/EmailField";
 import PasswordField from "@/components/PasswordField";
 import AppLayout from "@/components/layouts/AppLayout";
 import PhoneField from "@/components/PhoneField";
+import CustomizedSteppers from "@/components/register/RegisterStepper";
+import StepTwo from "@/components/register/StepTwo";
+import StepThree from "@/components/register/StepThree";
+
 const InputError = dynamic(() => import("@/components/InputError"));
 
-interface IFormInput {
-  email: string;
-  password: string;
-  passwordConfirm: string;
-  phone?: string;
-}
-
-const emailSchema = z
+const schemaStepOne = z
   .object({
-    email: z
-      .string()
-      .email("Invalid email address")
-      .max(255, "Email address must be less than 255 characters"),
-    password: z
-      .string()
-      .min(8, "Password must be at least 8 characters")
-      .max(30, "Password must be less than 30 characters"),
-    passwordConfirm: z.string().min(8, "Please confirm your password"),
+    email: z.string().email("Invalid email address").max(255),
+    password: z.string().min(8).max(30),
+    passwordConfirm: z.string().min(8),
+    phone: z.string(),
   })
   .refine((data) => data.password === data.passwordConfirm, {
     message: "Passwords do not match",
   });
 
-const phoneSchema = z.object({
-  phone: z.string().regex(/^\+380\d{9}$/, "Invalid phone number format"),
+const schemaStepTwo = z.object({
+  edrpou: z.string().min(8).max(10),
+  organizationName: z.string().min(1).max(255),
+  organizationType: z.string().min(1).max(255),
+});
+
+const schemaStepThree = z.object({
+  country: z.string().min(1).max(255),
+  oblast: z.string().min(1).max(255),
+  city: z.string().min(1).max(255),
 });
 
 export default function Register() {
-  const [selectedTab, setSelectedTab] =
-    React.useState<string>("Електронна пошта");
+  const searchParams = useSearchParams();
+  const type = searchParams.get("type");
+
+  const [selectedTab, setSelectedTab] = React.useState<string>(
+    type
+      ? type === "volunteer"
+        ? "Я волонтер"
+        : "Ми організація"
+      : "Я волонтер",
+  );
+  const [currentStep, setCurrentStep] = React.useState<number>(0);
+
+  const schemas = [schemaStepOne, schemaStepTwo, schemaStepThree];
 
   const {
     control,
@@ -55,15 +66,19 @@ export default function Register() {
     reset,
     setValue,
     getValues,
-  } = useForm<IFormInput>({
-    resolver: zodResolver(
-      selectedTab === "Електронна пошта" ? emailSchema : phoneSchema,
-    ),
+  } = useForm({
+    resolver: zodResolver(schemas[currentStep]),
     defaultValues: {
       email: "",
       password: "",
       passwordConfirm: "",
       phone: "",
+      edrpou: "",
+      organizationName: "",
+      organizationType: "",
+      country: "",
+      oblast: "",
+      city: "",
     },
   });
 
@@ -78,21 +93,29 @@ export default function Register() {
     confirmPassword: false,
   });
 
-  const handleEmailClick = () => {
-    setSelectedTab("Електронна пошта");
-
+  const handleVolunteerClick = () => {
+    setSelectedTab("Я волонтер");
     reset({
-      email: "",
-      password: "",
-      passwordConfirm: "",
+      email: getValues("email"),
+      password: getValues("password"),
+      passwordConfirm: getValues("passwordConfirm"),
+      phone: getValues("phone"),
     });
   };
 
-  const handleMobileClick = () => {
-    setSelectedTab("Номер телефону");
-
+  const handleOrganizationClick = () => {
+    setSelectedTab("Ми організація");
     reset({
-      phone: "",
+      email: getValues("email"),
+      password: getValues("password"),
+      passwordConfirm: getValues("passwordConfirm"),
+      phone: getValues("phone"),
+      edrpou: getValues("edrpou"),
+      organizationName: getValues("organizationName"),
+      organizationType: getValues("organizationType"),
+      country: getValues("country"),
+      oblast: getValues("oblast"),
+      city: getValues("city"),
     });
   };
 
@@ -103,7 +126,12 @@ export default function Register() {
     setValue("phone", getValues("phone"));
   }, [getValues, selectedTab, setValue]);
 
-  const onSubmit: SubmitHandler<IFormInput> = async (data) => {
+  const onSubmit: SubmitHandler<any> = async (data) => {
+    if (selectedTab === "Ми організація" && currentStep < 2) {
+      setCurrentStep(currentStep + 1);
+      return;
+    }
+
     setIsLoading(true);
     setServerError(null);
 
@@ -111,7 +139,6 @@ export default function Register() {
       const res = await signIn("credentials", {
         email: data.email,
         password: data.password,
-        passwordConfirm: data.passwordConfirm,
         redirect: false,
       });
 
@@ -131,18 +158,22 @@ export default function Register() {
   return (
     <AppLayout>
       <div className="flex items-center gap-6 px-16">
-        <div className="flex-none relative w-[40px] h-[40px] sm:w-[646px] sm:h-[922px]">
+        <div className="flex-none relative w-[40px] h-[40px] sm:w-[646px] sm:h-[1050px]">
           <Image
             src={"/AuthPage.jpg"}
             alt={"AuthPage Logo"}
             fill={true}
             priority
-            style={{ objectFit: "contain" }}
+            style={{ objectFit: "cover" }}
             sizes="(max-width: 640px) 40px, 646px"
           />
         </div>
 
-        <div className="flex items-center justify-center w-full">
+        <div className="flex flex-col items-center justify-center w-full">
+          {selectedTab === "Ми організація" && (
+            <CustomizedSteppers activeStep={currentStep} />
+          )}
+
           <div className="w-[415px]">
             <div className="mb-4">
               <h2 className="text-center max-sm:mb-1 text-3xl font-bold leading-tight text-black sm:text-4xl">
@@ -156,35 +187,37 @@ export default function Register() {
               </p>
             </div>
 
-            <div className="flex text-lg font-bold border-gray-300 sm:w-[415px] mb-6">
-              <button
-                onClick={handleEmailClick}
-                className={`flex-1 whitespace-nowrap inline-block p-2 border-b-2 ${
-                  selectedTab === "Електронна пошта"
-                    ? "text-[#404040] border-[#404040]"
-                    : "border-gray-400 text-[#7d7d7d]"
-                }`}
-              >
-                Електронна пошта
-              </button>
+            {!type && (
+              <div className="flex text-lg font-bold border-gray-300 sm:w-[415px] mb-6">
+                <button
+                  onClick={handleVolunteerClick}
+                  className={`flex-1 whitespace-nowrap inline-block p-2 border-b-2 ${
+                    selectedTab === "Я волонтер"
+                      ? "text-[#404040] border-[#404040]"
+                      : "border-gray-400 text-[#7d7d7d]"
+                  }`}
+                >
+                  Я волонтер
+                </button>
 
-              <button
-                onClick={handleMobileClick}
-                className={`flex-1 whitespace-nowrap inline-block p-2 border-b-2 ${
-                  selectedTab === "Номер телефону"
-                    ? "text-[#404040] border-[#404040]"
-                    : "border-gray-400 text-[#7d7d7d]"
-                }`}
-              >
-                Номер телефону
-              </button>
-            </div>
+                <button
+                  onClick={handleOrganizationClick}
+                  className={`flex-1 whitespace-nowrap inline-block p-2 border-b-2 ${
+                    selectedTab === "Ми організація"
+                      ? "text-[#404040] border-[#404040]"
+                      : "border-gray-400 text-[#7d7d7d]"
+                  }`}
+                >
+                  Ми організація
+                </button>
+              </div>
+            )}
 
             <form
               onSubmit={handleSubmit(onSubmit)}
               className="flex flex-col justify-center gap-6"
             >
-              {selectedTab === "Електронна пошта" && (
+              {selectedTab === "Я волонтер" || currentStep === 0 ? (
                 <>
                   <EmailField
                     control={control}
@@ -212,16 +245,26 @@ export default function Register() {
                     setShowPassword={setShowPassword}
                     error={errors.passwordConfirm?.message}
                   />
-                </>
-              )}
 
-              {selectedTab === "Номер телефону" && (
-                <PhoneField
+                  <PhoneField
+                    control={control}
+                    name={"phone"}
+                    isLoading={isLoading}
+                    placeholder={"Введіть номер телефону"}
+                    error={errors.phone?.message}
+                  />
+                </>
+              ) : currentStep === 1 ? (
+                <StepTwo
                   control={control}
-                  name={"phone"}
                   isLoading={isLoading}
-                  placeholder={"Введіть номер телефону"}
-                  error={errors.phone?.message}
+                  error={errors}
+                />
+              ) : (
+                <StepThree
+                  control={control}
+                  isLoading={isLoading}
+                  error={errors}
                 />
               )}
 
@@ -239,13 +282,17 @@ export default function Register() {
                 disabled={isLoading}
                 className="inline-flex w-full h-[62px] items-center justify-center rounded-2xl font-bold leading-7 text-lg text-black hover:bg-slate-200 border border-black bg-transparent"
               >
-                {isLoading ? "Обробка.." : "Зареєструватися "}
+                {selectedTab === "Я волонтер" || currentStep === 2
+                  ? "Зареєструватися"
+                  : isLoading
+                    ? "Обробка.."
+                    : "Далі"}
               </button>
             </form>
 
             <div className="flex py-6 gap-6 items-center">
               <p className="border border-gray-300 flex-1"></p>
-              <p className="text-center text-base whitespace-nowrap	text-[#929497]">
+              <p className="text-center text-base whitespace-nowrap text-[#929497]">
                 Увійти за допомогою
               </p>
               <p className="border border-gray-300 flex-1"></p>
