@@ -24,12 +24,12 @@ interface IFormInput {
 const schema = z.object({
   email: z
     .string()
-    .email("Invalid email address")
-    .max(255, "Email address must be less than 255 characters"),
+    .email("Неправильна адреса електронної пошти")
+    .max(255, "Адреса електронної пошти не повинна перевищувати 255 символів"),
   password: z
     .string()
-    .min(8, "Password must be at least 8 characters")
-    .max(30, "Password must be less than 30 characters"),
+    .min(8, "Пароль повинен містити не менше 8 символів")
+    .max(30, "Пароль не повинен перевищувати 30 символів"),
 });
 
 export default function Login() {

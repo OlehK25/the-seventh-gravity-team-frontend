@@ -23,13 +23,13 @@ const InputError = dynamic(() => import("@/components/InputError"));
 
 const schemaStepOne = z
   .object({
-    email: z.string().email("Invalid email address").max(255),
+    email: z.string().email("Неправильна адреса електронної пошти").max(255),
     password: z.string().min(8).max(30),
     passwordConfirm: z.string().min(8),
     phone: z.string(),
   })
   .refine((data) => data.password === data.passwordConfirm, {
-    message: "Passwords do not match",
+    message: "Паролі не збігаються",
   });
 
 const schemaStepTwo = z.object({

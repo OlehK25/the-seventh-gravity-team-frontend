@@ -5,7 +5,6 @@ import logOut from "@/helpers/logOut";
 
 const axios = Axios.create({
   baseURL: process.env.NEXT_PUBLIC_BACKEND_URL,
-  withCredentials: true,
 });
 
 axios.interceptors.request.use(async (config) => {

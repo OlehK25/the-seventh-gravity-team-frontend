@@ -15,21 +15,27 @@ function PhoneField({
   isLoading,
   placeholder,
   error,
-  label,
+  isProfile = false,
 }: {
   control: any;
   name: string;
   isLoading: boolean;
   placeholder: string;
   error: any;
-  label?: string;
+  isProfile?: boolean;
 }) {
   return (
     <Controller
       name={name}
       control={control}
       render={({ field }) => (
-        <div>
+        <div className={`flex flex-col gap-1.5`}>
+          {isProfile && (
+            <label htmlFor={name} className="text-black text-base">
+              Номер телефону
+            </label>
+          )}
+
           <PhoneInput
             country={"ua"}
             disabled={isLoading}
@@ -38,18 +44,18 @@ function PhoneField({
             inputStyle={{
               width: "100%",
               backgroundColor: "transparent",
-              height: "52px",
+              height: isProfile ? "44px" : "52px",
               color: "black",
               border: "none",
             }}
             containerStyle={{
               width: "100%",
-              border: "2px solid #d1d5db",
+              border: isProfile ? "2px solid black" : "2px solid #d1d5db",
               borderRadius: "10px",
             }}
             buttonStyle={{
               border: "none",
-              borderRight: "2px solid #d1d5db",
+              borderRight: isProfile ? "2px solid black" : "2px solid #d1d5db",
               borderRadius: "10px 0 0 10px",
             }}
             value={field.value}
