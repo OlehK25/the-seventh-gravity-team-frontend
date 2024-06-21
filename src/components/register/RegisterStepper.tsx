@@ -73,6 +73,7 @@ function QontoStepIcon(props: StepIconProps) {
 const steps = [
   "Пароль та логін",
   "Дані організації",
+  "",
   "Розташування організації",
 ];
 

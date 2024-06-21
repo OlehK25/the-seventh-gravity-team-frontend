@@ -10,9 +10,12 @@ import { useRouter } from "next/navigation";
 
 import NavLink from "@/components/NavLink";
 
-const AppBar = styled(MuiAppBar)((): { background: string } => ({
-  background: "transparent",
-}));
+const AppBar = styled(MuiAppBar)(
+  (): { background: string; boxShadow: string } => ({
+    background: "transparent",
+    boxShadow: "none",
+  }),
+);
 
 function Navigation({
   onHelpClick,
@@ -33,10 +36,7 @@ function Navigation({
   };
 
   return (
-    <AppBar
-      position="static"
-      className="w-full 2xl:max-w-screen-2xl shadow-none py-6"
-    >
+    <AppBar position="static" className="w-full 2xl:max-w-screen-2xl py-6">
       <Container
         maxWidth="xl"
         sx={{

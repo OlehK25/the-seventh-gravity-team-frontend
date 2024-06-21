@@ -5,6 +5,12 @@ const nextConfig = {
   },
   images: {
     minimumCacheTTL: 60,
+    remotePatterns:[
+      {
+        protocol: "https",
+        hostname: "via.placeholder.com",
+      },
+    ],
   },
   env: {
     NEXT_PUBLIC_BACKEND_URL: 'https://a806-176-100-4-90.ngrok-free.app',

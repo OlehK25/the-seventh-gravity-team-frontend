@@ -18,6 +18,7 @@ import PhoneField from "@/components/PhoneField";
 import CustomizedSteppers from "@/components/register/RegisterStepper";
 import StepTwo from "@/components/register/StepTwo";
 import StepThree from "@/components/register/StepThree";
+import StepFour from "@/components/register/StepFour";
 
 const InputError = dynamic(() => import("@/components/InputError"));
 
@@ -39,6 +40,11 @@ const schemaStepTwo = z.object({
 });
 
 const schemaStepThree = z.object({
+  beneficiaries: z.string().min(1).max(255),
+  date_of_registration: z.string().min(1).max(255),
+});
+
+const schemaStepFour = z.object({
   country: z.string().min(1).max(255),
   oblast: z.string().min(1).max(255),
   city: z.string().min(1).max(255),
@@ -57,7 +63,12 @@ export default function Register() {
   );
   const [currentStep, setCurrentStep] = React.useState<number>(0);
 
-  const schemas = [schemaStepOne, schemaStepTwo, schemaStepThree];
+  const schemas = [
+    schemaStepOne,
+    schemaStepTwo,
+    schemaStepThree,
+    schemaStepFour,
+  ];
 
   const {
     control,
@@ -79,6 +90,8 @@ export default function Register() {
       country: "",
       oblast: "",
       city: "",
+      beneficiaries: "",
+      date_of_registration: "",
     },
   });
 
@@ -116,6 +129,8 @@ export default function Register() {
       country: getValues("country"),
       oblast: getValues("oblast"),
       city: getValues("city"),
+      beneficiaries: getValues("beneficiaries"),
+      date_of_registration: getValues("date_of_registration"),
     });
   };
 
@@ -127,32 +142,33 @@ export default function Register() {
   }, [getValues, selectedTab, setValue]);
 
   const onSubmit: SubmitHandler<any> = async (data) => {
-    if (selectedTab === "Ми організація" && currentStep < 2) {
+    if (selectedTab === "Ми організація" && currentStep < 3) {
       setCurrentStep(currentStep + 1);
       return;
     }
 
-    setIsLoading(true);
-    setServerError(null);
-
-    try {
-      const res = await signIn("credentials", {
-        email: data.email,
-        password: data.password,
-        redirect: false,
-      });
-
-      if (res?.status === 200) {
-        reset();
-        router.push(`/`);
-      } else {
-        setServerError(res?.error);
-      }
-    } catch (error: any) {
-      setServerError(error?.message);
-    } finally {
-      setIsLoading(false);
-    }
+    router.push(`/profile`);
+    // setIsLoading(true);
+    // setServerError(null);
+    //
+    // try {
+    //   const res = await signIn("credentials", {
+    //     email: data.email,
+    //     password: data.password,
+    //     redirect: false,
+    //   });
+    //
+    //   if (res?.status === 200) {
+    //     reset();
+    //     router.push(`/`);
+    //   } else {
+    //     setServerError(res?.error);
+    //   }
+    // } catch (error: any) {
+    //   setServerError(error?.message);
+    // } finally {
+    //   setIsLoading(false);
+    // }
   };
 
   return (
@@ -181,9 +197,11 @@ export default function Register() {
               </h2>
 
               <p className="py-8 text-center">
-                Реєстрація за допомогою зареєстрованого номера телефону або
-                облікового запису в соціальній мережі призведе до входу в
-                обліковий запис
+                {currentStep > 0
+                  ? "Заповніть будь ласка форму"
+                  : "Реєстрація за допомогою зареєстрованого номера телефону або\n" +
+                    "облікового запису в соціальній мережі призведе до входу в\n" +
+                    "обліковий запис"}
               </p>
             </div>
 
@@ -260,8 +278,14 @@ export default function Register() {
                   isLoading={isLoading}
                   error={errors}
                 />
-              ) : (
+              ) : currentStep === 2 ? (
                 <StepThree
+                  control={control}
+                  isLoading={isLoading}
+                  error={errors}
+                />
+              ) : (
+                <StepFour
                   control={control}
                   isLoading={isLoading}
                   error={errors}

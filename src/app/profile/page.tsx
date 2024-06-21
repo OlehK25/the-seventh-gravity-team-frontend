@@ -8,10 +8,12 @@ import ProfileNavigation from "@/components/profile/ProfileNavigation";
 import VolunteerProfileStartBlock from "@/components/profile/VolunteerProfileStartBlock";
 
 export default function ProfilePage() {
+  const isOrg = true;
+
   return (
     <AppLayout>
       <div className="flex gap-8 items-center px-16 py-12">
-        <ProfileNavigation />
+        <ProfileNavigation isOrg={isOrg} />
 
         <div>
           <div className="grid grid-cols-3 gap-8 w-full">
@@ -25,6 +27,7 @@ export default function ProfilePage() {
                 />
               }
               title="Де я можу допомогти?"
+              patch="/help"
             />
 
             <VolunteerProfileStartBlock

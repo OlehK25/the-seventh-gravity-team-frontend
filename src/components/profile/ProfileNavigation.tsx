@@ -14,10 +14,10 @@ function ProfileNavigation({ isOrg = false }: { isOrg?: boolean }) {
   const [hover, setHover] = React.useState(false);
 
   return (
-    <div className="flex flex-col items-center justify-start gap-6 p-8 bg-[#C5D7E2] rounded-xl h-[650px] w-[310px] hover:cursor-pointer">
+    <div className="flex flex-col items-center justify-start gap-6 p-8 bg-[#C5D7E2] rounded-xl h-[650px] w-[310px]">
       <div className="flex flex-col items-center gap-3">
         <div
-          className="flex-none relative w-[60px] h-[60px] sm:w-[80px] sm:h-[80px]"
+          className="flex-none relative w-[60px] h-[60px] sm:w-[80px] sm:h-[80px] hover:cursor-pointer"
           onMouseEnter={() => setHover(true)}
           onMouseLeave={() => setHover(false)}
         >
@@ -46,6 +46,7 @@ function ProfileNavigation({ isOrg = false }: { isOrg?: boolean }) {
         <ProfileNavigationItemList
           icon={<TfiHome className="h-5 w-5" />}
           name={"Особисті дані"}
+          path={"/profile/personal-details"}
         />
 
         <ProfileNavigationItemList

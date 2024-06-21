@@ -57,27 +57,28 @@ export default function Login() {
   });
 
   const onSubmit: SubmitHandler<IFormInput> = async (data) => {
-    setIsLoading(true);
-    setServerError(null);
-
-    try {
-      const res = await signIn("credentials", {
-        email: data.email,
-        password: data.password,
-        redirect: false,
-      });
-
-      if (res?.status === 200) {
-        reset();
-        router.push(`/`);
-      } else {
-        setServerError(res?.error);
-      }
-    } catch (error: any) {
-      setServerError(error?.message);
-    } finally {
-      setIsLoading(false);
-    }
+    router.push(`/profile`);
+    // setIsLoading(true);
+    // setServerError(null);
+    //
+    // try {
+    //   const res = await signIn("credentials", {
+    //     email: data.email,
+    //     password: data.password,
+    //     redirect: false,
+    //   });
+    //
+    //   if (res?.status === 200) {
+    //     reset();
+    //     router.push(`/`);
+    //   } else {
+    //     setServerError(res?.error);
+    //   }
+    // } catch (error: any) {
+    //   setServerError(error?.message);
+    // } finally {
+    //   setIsLoading(false);
+    // }
   };
 
   return (
