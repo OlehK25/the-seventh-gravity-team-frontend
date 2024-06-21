@@ -10,19 +10,20 @@ const myFont = localFont({
 });
 
 function NavLink({
-  href,
   listItemText,
+  href,
   onClick,
   classes,
 }: {
   listItemText: string;
-  href?: string;
+  href: string;
   onClick?: () => void;
   classes?: any;
 }) {
   const pathname = usePathname();
 
-  const basePath = href ? href.split("/")[1] : "";
+  const basePath = href.split("/")[1];
+
   const active = pathname.includes(basePath);
 
   return (
@@ -33,6 +34,7 @@ function NavLink({
           color: "#000000",
           fontSize: "20px",
           lineHeight: "20px",
+          fontWeight: active ? "bold" : "normal",
           padding: classes?.padding
             ? `${classes.padding.y} ${classes.padding.x}`
             : "16px",

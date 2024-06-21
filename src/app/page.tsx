@@ -10,15 +10,10 @@ import SectionFour from "@/components/homePage/SectionFour";
 
 export default function HomePage() {
   const aboutUsRef = React.useRef<HTMLDivElement>(null);
-  const helpingRef = React.useRef<HTMLDivElement>(null);
   const leviesRef = React.useRef<HTMLDivElement>(null);
 
   const handleAboutClick = () => {
     aboutUsRef.current?.scrollIntoView({ behavior: "smooth" });
-  };
-
-  const handleHelpClick = () => {
-    helpingRef.current?.scrollIntoView({ behavior: "smooth" });
   };
 
   const handleLeviesClick = () => {
@@ -27,7 +22,6 @@ export default function HomePage() {
 
   return (
     <AppLayout
-      onHelpClick={handleHelpClick}
       onLeviesClick={handleLeviesClick}
       onAboutUsClick={handleAboutClick}
     >
@@ -43,9 +37,7 @@ export default function HomePage() {
         </div>
       </div>
 
-      <div ref={helpingRef}>
-        <SectionFour />
-      </div>
+      <SectionFour />
 
       <FooterData />
     </AppLayout>

@@ -18,11 +18,9 @@ const AppBar = styled(MuiAppBar)(
 );
 
 function Navigation({
-  onHelpClick,
   onLeviesClick,
   onAboutUsClick,
 }: {
-  onHelpClick?: () => void;
   onLeviesClick?: () => void;
   onAboutUsClick?: () => void;
 }) {
@@ -74,11 +72,15 @@ function Navigation({
               flexWrap: "wrap",
             }}
           >
-            <NavLink listItemText={"Допомогти"} onClick={onHelpClick} />
-            <NavLink listItemText={"Волонтери"} />
-            <NavLink listItemText={"Збори"} onClick={onLeviesClick} />
-            <NavLink listItemText={"Про нас"} onClick={onAboutUsClick} />
-            <NavLink listItemText={"Звіти"} />
+            <NavLink listItemText={"Допомогти"} href={"/help"} />
+            <NavLink listItemText={"Волонтери"} href={"/volunteers"} />
+            <NavLink listItemText={"Збори"} href={""} onClick={onLeviesClick} />
+            <NavLink
+              listItemText={"Про нас"}
+              href={""}
+              onClick={onAboutUsClick}
+            />
+            <NavLink listItemText={"Звіти"} href={""} />
 
             <Box
               sx={{

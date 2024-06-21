@@ -13,7 +13,7 @@ function VolunteerCard({
   exp: string;
 }) {
   return (
-    <div className="flex flex-col gap-4 rounded-2xl p-4 bg-[#D9D9D9]">
+    <div className="flex flex-col gap-4 rounded-2xl p-4 bg-[#D9D9D9] hover:scale-[1.02] hover:shadow-xl transition-all duration-300">
       <div className="flex-none relative w-[190px] h-[190px]">
         <Image
           src={icon}
