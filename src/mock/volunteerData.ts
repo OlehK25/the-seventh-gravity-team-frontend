@@ -3,7 +3,7 @@ import { Volunteer } from "@/types/Volunteer";
 export const volunteerData: Volunteer[] = [
   {
     id: 1,
-    icon: "https://via.placeholder.com/190",
+    icon: "/volunteers/man-1.png",
     name: "Олег",
     specialization: "водій",
     exp: "2 роки",
@@ -13,7 +13,7 @@ export const volunteerData: Volunteer[] = [
   },
   {
     id: 2,
-    icon: "https://via.placeholder.com/190",
+    icon: "/volunteers/man-2.png",
     name: "Віктор",
     specialization: "механік",
     exp: "1 рік",
@@ -33,7 +33,7 @@ export const volunteerData: Volunteer[] = [
   },
   {
     id: 4,
-    icon: "https://via.placeholder.com/190",
+    icon: "/volunteers/man-1.png",
     name: "Андрій",
     specialization: "медик",
     exp: "Без досвіду",
@@ -53,7 +53,7 @@ export const volunteerData: Volunteer[] = [
   },
   {
     id: 6,
-    icon: "https://via.placeholder.com/190",
+    icon: "/volunteers/woman-1.png",
     name: "Марія",
     specialization: "вчитель",
     exp: "5 років",
@@ -63,7 +63,7 @@ export const volunteerData: Volunteer[] = [
   },
   {
     id: 7,
-    icon: "https://via.placeholder.com/190",
+    icon: "/volunteers/woman-2.png",
     name: "Катерина",
     specialization: "лікар",
     exp: "2 роки",
@@ -83,7 +83,7 @@ export const volunteerData: Volunteer[] = [
   },
   {
     id: 9,
-    icon: "https://via.placeholder.com/190",
+    icon: "/volunteers/woman-1.png",
     name: "Тетяна",
     specialization: "юрист",
     exp: "1 рік",
@@ -93,7 +93,7 @@ export const volunteerData: Volunteer[] = [
   },
   {
     id: 10,
-    icon: "https://via.placeholder.com/190",
+    icon: "/volunteers/man-2.png",
     name: "Микола",
     specialization: "будівельник",
     exp: "3 роки",

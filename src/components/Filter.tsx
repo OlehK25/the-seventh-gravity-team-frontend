@@ -23,7 +23,7 @@ function Filter({
                   ? selectedFilters.includes(category)
                   : selectedFilters === category
               )
-                ? "bg-blue-500 text-white"
+                ? "bg-black text-white"
                 : "bg-white text-black hover:bg-gray-50"
             }`}
           >
