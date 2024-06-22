@@ -2,7 +2,7 @@ import { HelpPlace } from "@/types/HelpPlace";
 
 export const helpPlacesData: HelpPlace[] = [
   {
-    image_url: "https://via.placeholder.com/208x174",
+    image_url: "/places/event-1.png",
     address: "вул. Незалежності, 1, Київ, Україна",
     description: "Пошкоджено дах будинку, потрібна допомога у ремонті.",
     date_time: "2024-06-25 10:00",
@@ -24,7 +24,7 @@ export const helpPlacesData: HelpPlace[] = [
     experience_level: "1 рік",
   },
   {
-    image_url: "https://via.placeholder.com/208x174",
+    image_url: "/places/event-2.png",
     address: "вул. Гагаріна, 21, Одеса, Україна",
     description:
       "Пошкоджені вікна у школі, необхідні матеріали та робочі руки для заміни.",
@@ -48,7 +48,7 @@ export const helpPlacesData: HelpPlace[] = [
     experience_level: "Без досвіду",
   },
   {
-    image_url: "https://via.placeholder.com/208x174",
+    image_url: "/places/event-2.png",
     address: "вул. Лесі Українки, 5, Дніпро, Україна",
     description: "Необхідна допомога у розчищенні території після буревію.",
     date_time: "2024-06-29 08:00",
@@ -59,7 +59,7 @@ export const helpPlacesData: HelpPlace[] = [
     experience_level: "2 роки",
   },
   {
-    image_url: "https://via.placeholder.com/208x174",
+    image_url: "/places/event-4.png",
     address: "вул. Миру, 12, Запоріжжя, Україна",
     description:
       "Потрібні волонтери для допомоги у розподілі гуманітарної допомоги.",
@@ -94,7 +94,7 @@ export const helpPlacesData: HelpPlace[] = [
     experience_level: "5 років",
   },
   {
-    image_url: "https://via.placeholder.com/208x174",
+    image_url: "/places/event-3.png",
     address: "вул. Садова, 9, Полтава, Україна",
     description: "Потрібна допомога у ремонті громадського центру.",
     date_time: "2024-07-03 13:00",
@@ -128,7 +128,7 @@ export const helpPlacesData: HelpPlace[] = [
     experience_level: "1 рік",
   },
   {
-    image_url: "https://via.placeholder.com/208x174",
+    image_url: "/places/event-2.png",
     address: "вул. Героїв Майдану, 10, Тернопіль, Україна",
     description: "Потрібна допомога у прибиранні парку після урагану.",
     date_time: "2024-07-06 15:00",
@@ -139,7 +139,7 @@ export const helpPlacesData: HelpPlace[] = [
     experience_level: "1 рік",
   },
   {
-    image_url: "https://via.placeholder.com/208x174",
+    image_url: "/places/event-1.png",
     address: "вул. Квіткова, 8, Ужгород, Україна",
     description: "Необхідна допомога у ремонті даху будинку.",
     date_time: "2024-07-07 16:00",
