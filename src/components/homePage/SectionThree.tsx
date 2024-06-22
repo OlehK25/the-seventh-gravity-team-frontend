@@ -1,6 +1,6 @@
 import * as React from "react";
 import SectionThreeBlock from "@/components/homePage/SectionThreeBlock";
-import { donationData } from "@/mock/LeviesMockData";
+import { donationData } from "@/mock/leviesMockData";
 
 function SectionThree() {
   return (

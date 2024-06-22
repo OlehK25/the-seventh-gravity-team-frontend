@@ -23,7 +23,7 @@ function StepThree({
 
       <SimpleField
         control={control}
-        name={"oblast"}
+        name={"date_of_registration"}
         placeholder={"Дата реєстрації компанії"}
         type={"text"}
         isLoading={isLoading}

@@ -19,6 +19,7 @@ import CustomizedSteppers from "@/components/register/RegisterStepper";
 import StepTwo from "@/components/register/StepTwo";
 import StepThree from "@/components/register/StepThree";
 import StepFour from "@/components/register/StepFour";
+import { useUser } from "@/contexts/userContext";
 
 const InputError = dynamic(() => import("@/components/InputError"));
 
@@ -41,7 +42,7 @@ const schemaStepTwo = z.object({
 
 const schemaStepThree = z.object({
   beneficiaries: z.string().min(1).max(255),
-  date_of_registration: z.string().min(1).max(255),
+  date_of_registration: z.any(),
 });
 
 const schemaStepFour = z.object({
@@ -105,6 +106,7 @@ export default function Register() {
     password: false,
     confirmPassword: false,
   });
+  const { userType, login } = useUser();
 
   const handleVolunteerClick = () => {
     setSelectedTab("Я волонтер");
@@ -147,7 +149,11 @@ export default function Register() {
       return;
     }
 
-    router.push(`/profile`);
+    login(type === "volunteer" ? "volunteer" : "organization");
+
+    if (userType === "volunteer") {
+      router.push("/profile");
+    } else router.push("/profile/personal-details");
     // setIsLoading(true);
     // setServerError(null);
     //
@@ -306,7 +312,7 @@ export default function Register() {
                 disabled={isLoading}
                 className="inline-flex w-full h-[62px] items-center justify-center rounded-2xl font-bold leading-7 text-lg text-black hover:bg-slate-200 border border-black bg-transparent"
               >
-                {selectedTab === "Я волонтер" || currentStep === 2
+                {selectedTab === "Я волонтер" || currentStep === 3
                   ? "Зареєструватися"
                   : isLoading
                     ? "Обробка.."

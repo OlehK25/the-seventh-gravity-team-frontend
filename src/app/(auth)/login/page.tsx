@@ -49,7 +49,7 @@ export default function Login() {
 
   const router = useRouter();
 
-  const { isLoggedIn, userType, login } = useUser();
+  const { userType, login } = useUser();
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
   const [serverError, setServerError] = React.useState<
     string | null | undefined
