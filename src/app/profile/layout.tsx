@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import * as React from "react";
 
 export const metadata: Metadata = {
-  title: "Profile",
-  description: "This is the profile page.",
+  title: "Профіль",
+  description: "Профіль волонтера",
 };
 
 export default function ProfileLayout({

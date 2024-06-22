@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import * as React from "react";
 
 export const metadata: Metadata = {
-  title: "Help Places",
-  description: "This is the Help Places website.",
+  title: "Місця де потрібна допомога",
+  description: "Місця де потрібна допомога",
 };
 
 export default function HelpPlacesLayout({

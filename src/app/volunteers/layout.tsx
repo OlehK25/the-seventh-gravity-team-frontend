@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import * as React from "react";
 
 export const metadata: Metadata = {
-  title: "Volunteer",
-  description: "This is the volunteer page",
+  title: "Волонтери",
+  description: "Список усіх доступних волонтерів за категоріями",
 };
 
 export default function VolunteersLayout({

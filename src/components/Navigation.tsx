@@ -9,6 +9,8 @@ import { styled } from "@mui/material/styles";
 import { useRouter } from "next/navigation";
 
 import NavLink from "@/components/NavLink";
+import { Avatar } from "@mui/material";
+import { useUser } from "@/contexts/userContext";
 
 const AppBar = styled(MuiAppBar)(
   (): { background: string; boxShadow: string } => ({
@@ -26,6 +28,7 @@ function Navigation({
 }) {
   const [languagesSelected, setLanguagesSelected] =
     React.useState<string>("ua");
+  const { isLoggedIn, userType, login } = useUser();
 
   const router = useRouter();
 
@@ -113,12 +116,24 @@ function Navigation({
             </Box>
           </Box>
 
-          <button
-            onClick={() => router.push("/login")}
-            className="ml-10 inline-flex w-[138px] h-[40px] items-center justify-center rounded-2xl font-normal leading-7 text-white hover:bg-slate-950 bg-slate-950"
-          >
-            Вхід
-          </button>
+          {!isLoggedIn && (
+            <button
+              onClick={() => router.push("/login")}
+              className="ml-10 inline-flex w-[138px] h-[40px] items-center justify-center rounded-2xl font-normal leading-7 text-white hover:bg-slate-950 bg-slate-950"
+            >
+              Вхід
+            </button>
+          )}
+
+          {isLoggedIn && (
+            <Avatar
+              onClick={() =>
+                userType === "volunteer"
+                  ? router.push("/profile")
+                  : router.push("/profile/personal-details")
+              }
+            />
+          )}
         </Toolbar>
       </Container>
     </AppBar>

@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import * as React from "react";
 
 export const metadata: Metadata = {
-  title: "Personal Details",
+  title: "Персональні дані",
   description:
-    "This is the personal details page: a form to collect personal details.",
+    "Персональні дані - це інформація, що дозволяє ідентифікувати конкретну особу",
 };
 
 export default function PersonalDetailsLayout({

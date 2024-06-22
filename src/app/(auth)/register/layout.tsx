@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import * as React from "react";
 
 export const metadata: Metadata = {
-  title: "Register",
-  description: "Here you can register to the website.",
+  title: "Реєстрація",
+  description: "Створення та налаштування нового облікового запису",
 };
 
 export default function RegisterLayout({

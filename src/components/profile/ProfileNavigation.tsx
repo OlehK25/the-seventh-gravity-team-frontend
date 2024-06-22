@@ -9,8 +9,10 @@ import { IoSettingsOutline } from "react-icons/io5";
 import { MdOutlineLogout } from "react-icons/md";
 
 import ProfileNavigationItemList from "@/components/profile/ProfileNavigationItemList";
+import { useUser } from "@/contexts/userContext";
 
-function ProfileNavigation({ isOrg = false }: { isOrg?: boolean }) {
+function ProfileNavigation() {
+  const { userType } = useUser();
   const [hover, setHover] = React.useState(false);
 
   return (
@@ -38,7 +40,7 @@ function ProfileNavigation({ isOrg = false }: { isOrg?: boolean }) {
         </div>
 
         <p className="font-semibold text-xl">
-          {isOrg ? `"Назва Організації"` : "Олег"}
+          {userType === "organization" ? `"Назва Організації"` : "Олег"}
         </p>
       </div>
 
@@ -56,7 +58,7 @@ function ProfileNavigation({ isOrg = false }: { isOrg?: boolean }) {
 
         <ProfileNavigationItemList
           icon={<PiTelegramLogoLight className="h-5 w-5" />}
-          name={"@olegvolonter"}
+          name={userType === "organization" ? "@org.donat" : "@olegvolonter"}
         />
 
         <ProfileNavigationItemList
@@ -64,7 +66,7 @@ function ProfileNavigation({ isOrg = false }: { isOrg?: boolean }) {
           name={"Редагувати профіль"}
         />
 
-        {!isOrg && (
+        {userType !== "organization" && (
           <ProfileNavigationItemList
             icon={<GoGift className="h-5 w-5" />}
             name={"Бонуси"}

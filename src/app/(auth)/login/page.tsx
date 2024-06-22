@@ -14,6 +14,7 @@ import dynamic from "next/dynamic";
 import EmailField from "@/components/EmailField";
 import PasswordField from "@/components/PasswordField";
 import AppLayout from "@/components/layouts/AppLayout";
+import { useUser } from "@/contexts/userContext";
 const InputError = dynamic(() => import("@/components/InputError"));
 
 interface IFormInput {
@@ -48,6 +49,7 @@ export default function Login() {
 
   const router = useRouter();
 
+  const { isLoggedIn, userType, login } = useUser();
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
   const [serverError, setServerError] = React.useState<
     string | null | undefined
@@ -57,7 +59,11 @@ export default function Login() {
   });
 
   const onSubmit: SubmitHandler<IFormInput> = async (data) => {
-    router.push(`/profile`);
+    login("volunteer");
+
+    if (userType === "volunteer") {
+      router.push("/profile");
+    } else router.push("/profile/personal-details");
     // setIsLoading(true);
     // setServerError(null);
     //

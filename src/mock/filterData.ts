@@ -1,4 +1,6 @@
-export const volunteerFilter = [
+import { Filter } from "@/types/Filter";
+
+export const filterData: Filter[] = [
   {
     type: "help_mode",
     text: "Онлайн/офлайн допомога",
@@ -14,6 +16,7 @@ export const volunteerFilter = [
       "Психологічна допомога",
       "Навчання",
       "Юридична допомога",
+      "Консультація",
     ],
   },
   {
@@ -45,9 +48,7 @@ export const volunteerFilter = [
       "1 рік",
       "1,5 роки",
       "2 роки",
-      "2,5 роки",
       "3 роки",
-      "3,5 роки",
       "4 роки",
       "5 років",
     ],
